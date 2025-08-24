@@ -8,6 +8,7 @@ use App\Http\Controllers\adsController;
 use App\Http\Controllers\followersController;
 use App\Http\Controllers\groupsController;
 use App\Http\Controllers\likesController;
+use App\Http\Controllers\notificationsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ourProductsController;
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+    Route::apiResource('notification',notificationsController::class);
 
   Route::resource('ads', App\Http\Controllers\adsController::class); 
 //Route::post('im',[adsController::class,'store']);

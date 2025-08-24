@@ -42,31 +42,14 @@ class ProductsController extends Controller
         return response()->json($product, 200);
     }
 
-        public function indexOrder()
-    {
-        $query=Products::query()->where('isshow',false);
-        $user=auth()->user()->id;
-        $product=$query->with(['image','user'])->paginate(10);
-
-        $like=likes::where('user_id',$user)->pluck('product_id')->toArray();
-        foreach ($product as $pro ) {
-            $pro->liked=in_array($pro->id,$like);
-        }
-        $follower=followers::where('follower_id',$user)->pluck('followed_id')->toArray();
-        foreach ($product as $pro ) {
-            $pro->isfollowed=in_array($pro->user->id,$follower);
-        }
-
-
-        return response()->json($product, 200);
-    }
+  
     /**
      * search for product 
      * 
      */
     public function search(Request $request)
     {
-        $query=Products::query();
+        $query=Products::query()->where('isshow',true);
         $user=auth()->user()->id;
         $value=$request->input('value');
         if($request->filled('value')){
